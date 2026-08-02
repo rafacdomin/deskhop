@@ -43,7 +43,7 @@ const config_t default_config = {
                 .top = 0,
                 .bottom = MAX_SCREEN_COORD,
             },
-            .screen_count = 1,
+            .screen_count = 2,
             .screen_index = 1,
             .os = OUTPUT_B_OS,
             .pos = LEFT,
