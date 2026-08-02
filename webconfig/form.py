@@ -41,6 +41,7 @@ CONFIG_ = [
 
 OUTPUT_ = [
     FormField(1, "Screen Count", 1, {1: "1", 2: "2", 3: "3"}, "uint32"),
+    FormField(13, "Secondary Screen Vertical", None, {}, "uint8", "checkbox"),
     FormField(2, "Speed X", 16, {"min": 1, "max": 100}, "int32", "range"),
     FormField(3, "Speed Y", 16, {"min": 1, "max": 100}, "int32", "range"),
     FormField(4, "Border Top", None, {}, "int32"),

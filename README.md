@@ -270,6 +270,7 @@ For this specific layout:
 
 - **B2 (1080x1920, vertical)** -> **B1 (1920x1080, horizontal)** -> **A (2560x1080)**
 - Set **Output B / Screen Count = 2** so B2<->B1 switching is enabled.
+- Set **Output B / Secondary Screen Vertical = enabled** so B2 uses portrait-aware X/Y speed mapping.
 - Keep **Output B / Screen Position = Left** and **Output A / Screen Position = Right**.
 - Since B1 and A are both 1080 pixels high, use full-range border defaults (`Border Top = 0`, `Border Bottom = 32767`) unless you intentionally want a vertical offset.
 

@@ -122,15 +122,23 @@ float calculate_mouse_acceleration_factor(int32_t offset_x, int32_t offset_y) {
 enum screen_pos_e update_mouse_position(device_t *state, mouse_values_t *values) {
     output_t *current    = &state->config.output[state->active_output];
     uint8_t reduce_speed = 0;
+    int32_t speed_x      = current->speed_x;
+    int32_t speed_y      = current->speed_y;
 
     /* Check if we are configured to move slowly */
     if (state->mouse_zoom)
         reduce_speed = MOUSE_ZOOM_SCALING_FACTOR;
 
+    /* Secondary screens can optionally be treated as portrait by swapping speed axes. */
+    if (current->screen_index > 1 && current->secondary_screen_vertical) {
+        speed_x = current->speed_y;
+        speed_y = current->speed_x;
+    }
+
     /* Calculate movement */
     float acceleration_factor = calculate_mouse_acceleration_factor(values->move_x, values->move_y);
-    int offset_x = round(values->move_x * acceleration_factor * (current->speed_x >> reduce_speed));
-    int offset_y = round(values->move_y * acceleration_factor * (current->speed_y >> reduce_speed));
+    int offset_x = round(values->move_x * acceleration_factor * (speed_x >> reduce_speed));
+    int offset_y = round(values->move_y * acceleration_factor * (speed_y >> reduce_speed));
 
     /* Determine if our upcoming movement would stay within the screen */
     enum screen_pos_e switch_direction = is_screen_switch_needed(current, state->pointer_x, offset_x);

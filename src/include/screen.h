@@ -40,6 +40,7 @@ typedef struct {
 typedef struct {
     uint32_t number;           // Number of this output (e.g. OUTPUT_A = 0 etc)
     uint32_t screen_count;     // How many monitors per output (e.g. Output A is Windows with 3 monitors)
+    uint8_t secondary_screen_vertical; // If set, extra screens (index > 1) are treated as portrait for speed mapping
     uint32_t screen_index;     // Current active screen
     int32_t speed_x;           // Mouse speed per output, in direction X
     int32_t speed_y;           // Mouse speed per output, in direction Y

@@ -20,6 +20,7 @@ const field_map_t api_field_map[] = {
     /* Output A */
     { 10, false, UINT32, 4, offsetof(device_t, config.output[0].number) },
     { 11, false, UINT32, 4, offsetof(device_t, config.output[0].screen_count) },
+    { 23, false, UINT8,  1, offsetof(device_t, config.output[0].secondary_screen_vertical) },
     { 12, false, INT32,  4, offsetof(device_t, config.output[0].speed_x) },
     { 13, false, INT32,  4, offsetof(device_t, config.output[0].speed_y) },
     { 14, false, INT32,  4, offsetof(device_t, config.output[0].border.top) },
@@ -37,6 +38,7 @@ const field_map_t api_field_map[] = {
     /* Output B */
     { 40, false, UINT32, 4, offsetof(device_t, config.output[1].number) },
     { 41, false, UINT32, 4, offsetof(device_t, config.output[1].screen_count) },
+    { 53, false, UINT8,  1, offsetof(device_t, config.output[1].secondary_screen_vertical) },
     { 42, false, INT32,  4, offsetof(device_t, config.output[1].speed_x) },
     { 43, false, INT32,  4, offsetof(device_t, config.output[1].speed_y) },
     { 44, false, INT32,  4, offsetof(device_t, config.output[1].border.top) },
