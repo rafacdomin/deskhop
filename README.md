@@ -266,6 +266,13 @@ Windows and Mac have issues with multiple screens and absolute positioning, so w
 
 Your main screens need to be in the middle, and secondary screen(s) on the edges. To configure the actual options, open the web configuration page for your device.
 
+For this specific layout:
+
+- **B2 (1080x1920, vertical)** -> **B1 (1920x1080, horizontal)** -> **A (2560x1080)**
+- Set **Output B / Screen Count = 2** so B2<->B1 switching is enabled.
+- Keep **Output B / Screen Position = Left** and **Output A / Screen Position = Right**.
+- Since B1 and A are both 1080 pixels high, use full-range border defaults (`Border Top = 0`, `Border Bottom = 32767`) unless you intentionally want a vertical offset.
+
 ![Multiple screens per output](img/deskhop-scr.png)
 
 ### Web configuration mode
