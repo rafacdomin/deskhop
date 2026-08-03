@@ -143,6 +143,8 @@ enum screen_pos_e update_mouse_position(device_t *state, mouse_values_t *values)
         on_screen2 = (current->screen_index == 2);
     }
 
+    int32_t effective_x, effective_y, sx, sy;
+
     if (on_screen2 && (current->speed_x2 > 0 || current->rotate_screen2)) {
         effective_x = values->move_y;  /* physical Y becomes logical X (portrait rotation) */
         effective_y = values->move_x;  /* physical X becomes logical Y */
@@ -154,6 +156,7 @@ enum screen_pos_e update_mouse_position(device_t *state, mouse_values_t *values)
         sx          = current->speed_x;
         sy          = current->speed_y;
     }
+
 
     /* Calculate movement */
     float acceleration_factor = calculate_mouse_acceleration_factor(effective_x, effective_y);
