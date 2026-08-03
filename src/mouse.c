@@ -127,10 +127,25 @@ enum screen_pos_e update_mouse_position(device_t *state, mouse_values_t *values)
     if (state->mouse_zoom)
         reduce_speed = MOUSE_ZOOM_SCALING_FACTOR;
 
+    /* When on screen 2 with rotation enabled (e.g. portrait monitor B2),
+       swap X<->Y axes to compensate for the 90-degree physical rotation and
+       use the per-screen speed factors so movement feels natural. */
+    int32_t effective_x = values->move_x;
+    int32_t effective_y = values->move_y;
+    int32_t sx          = current->speed_x;
+    int32_t sy          = current->speed_y;
+
+    if (current->screen_index == 2 && current->rotate_screen2) {
+        effective_x = values->move_y;  /* physical Y becomes logical X */
+        effective_y = values->move_x;  /* physical X becomes logical Y */
+        sx          = current->speed_x2;
+        sy          = current->speed_y2;
+    }
+
     /* Calculate movement */
-    float acceleration_factor = calculate_mouse_acceleration_factor(values->move_x, values->move_y);
-    int offset_x = round(values->move_x * acceleration_factor * (current->speed_x >> reduce_speed));
-    int offset_y = round(values->move_y * acceleration_factor * (current->speed_y >> reduce_speed));
+    float acceleration_factor = calculate_mouse_acceleration_factor(effective_x, effective_y);
+    int offset_x = round(effective_x * acceleration_factor * (sx >> reduce_speed));
+    int offset_y = round(effective_y * acceleration_factor * (sy >> reduce_speed));
 
     /* Determine if our upcoming movement would stay within the screen */
     enum screen_pos_e switch_direction = is_screen_switch_needed(current, state->pointer_x, offset_x);

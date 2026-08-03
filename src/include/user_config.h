@@ -73,9 +73,22 @@
 #define MOUSE_SPEED_A_FACTOR_X 16
 #define MOUSE_SPEED_A_FACTOR_Y 28
 
-/* Output B values, default is for the most common ~ 16:9 ratio screen */
+/* Output B - screen 1 (B1, monitor horizontal 1920x1080) */
 #define MOUSE_SPEED_B_FACTOR_X 16
 #define MOUSE_SPEED_B_FACTOR_Y 28
+
+/* Output B - screen 2 (B2, monitor vertical 1080x1920 rotacionado 90 graus)         */
+/* O monitor esta em portrait: X fisico = 1080px (menor dim), Y fisico = 1920px (maior dim) */
+/* Proporcao invertida em relacao ao B1 (1920x1080):                                  */
+/*   speed_x2 = MOUSE_SPEED_B_FACTOR_Y = 28  (mais rapido no X para compensar a dim menor) */
+/*   speed_y2 = MOUSE_SPEED_B_FACTOR_X = 16  (mais lento  no Y para compensar a dim maior) */
+/* ROTATE_SCREEN_B2 = 1: troca eixos X<->Y para compensar a rotacao fisica do monitor */
+#define MOUSE_SPEED_B2_FACTOR_X  28
+#define MOUSE_SPEED_B2_FACTOR_Y  16
+#define ROTATE_SCREEN_B2         1
+
+/* Numero de monitores virtuais no Output B (B1 + B2) */
+#define SCREEN_COUNT_B 2
 
 #define JUMP_THRESHOLD 0
 
