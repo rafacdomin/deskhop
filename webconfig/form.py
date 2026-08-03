@@ -55,6 +55,13 @@ OUTPUT_ = [
     FormField(12, "Max Time (μs)", None, {}, "uint64"),
 ]
 
+OUTPUT_B_EXTRA_ = [
+    FormField(1004, "Screen 2 (Portrait Monitor)", elem="label"),
+    FormField(13, "Screen 2 Speed X", 28, {"min": 1, "max": 100}, "int32", "range"),
+    FormField(14, "Screen 2 Speed Y", 16, {"min": 1, "max": 100}, "int32", "range"),
+    FormField(15, "Screen 2 Rotate Axes", None, {}, "uint8", "checkbox"),
+]
+
 def generate_output(base, data):
     output = [
         {
@@ -73,7 +80,8 @@ def output_A(base=10):
     return generate_output(base, data=OUTPUT_)
 
 def output_B(base=40):
-    return generate_output(base, data=OUTPUT_)
+    return generate_output(base, data=OUTPUT_) + generate_output(base, data=OUTPUT_B_EXTRA_)
+
 
 def output_status():
     return generate_output(0, data=STATUS_)
