@@ -51,6 +51,7 @@ const field_map_t api_field_map[] = {
     { 53, false, INT32,  4, offsetof(device_t, config.output[1].speed_x2) },
     { 54, false, INT32,  4, offsetof(device_t, config.output[1].speed_y2) },
     { 55, false, UINT8,  1, offsetof(device_t, config.output[1].rotate_screen2) },
+    { 56, false, UINT32, 4, offsetof(device_t, config.output[1].screen2_x_boundary) },
 
     /* Common config */
     { 70, false, UINT32, 4, offsetof(device_t, config.version) },

@@ -127,19 +127,32 @@ enum screen_pos_e update_mouse_position(device_t *state, mouse_values_t *values)
     if (state->mouse_zoom)
         reduce_speed = MOUSE_ZOOM_SCALING_FACTOR;
 
-    /* When on screen 2 with rotation enabled (e.g. portrait monitor B2),
-       swap X<->Y axes to compensate for the 90-degree physical rotation and
-       use the per-screen speed factors so movement feels natural. */
-    int32_t effective_x = values->move_x;
-    int32_t effective_y = values->move_y;
-    int32_t sx          = current->speed_x;
-    int32_t sy          = current->speed_y;
+    /* Determine if the cursor is on the secondary physical monitor (B2).
+       Two detection modes:
+       - Position-based (screen2_x_boundary > 0): B2 is a physical monitor to the LEFT of the
+         main one. If the cursor's X position is within the B2 region, apply B2 speed/rotate.
+         The boundary is set in DeskHop coordinates (0-32767). Calculate yours with:
+           boundary = (B2_width_px / total_combined_width_px) * 32767
+         e.g. B2=1080px, B1=1920px → boundary = (1080/3000)*32767 ≈ 11796
+       - Legacy screen_index mode (screen2_x_boundary == 0): screen_index becomes 2 only after
+         do_screen_switch (MacOS Spaces / Mission Control virtual desktops). */
+    bool on_screen2;
+    if (current->screen2_x_boundary > 0) {
+        on_screen2 = (state->pointer_x <= (int32_t)current->screen2_x_boundary);
+    } else {
+        on_screen2 = (current->screen_index == 2);
+    }
 
-    if (current->screen_index == 2 && current->rotate_screen2) {
-        effective_x = values->move_y;  /* physical Y becomes logical X */
+    if (on_screen2 && (current->speed_x2 > 0 || current->rotate_screen2)) {
+        effective_x = values->move_y;  /* physical Y becomes logical X (portrait rotation) */
         effective_y = values->move_x;  /* physical X becomes logical Y */
         sx          = current->speed_x2;
         sy          = current->speed_y2;
+    } else {
+        effective_x = values->move_x;
+        effective_y = values->move_y;
+        sx          = current->speed_x;
+        sy          = current->speed_y;
     }
 
     /* Calculate movement */
@@ -159,6 +172,7 @@ enum screen_pos_e update_mouse_position(device_t *state, mouse_values_t *values)
 
     return switch_direction;
 }
+
 
 /* If we are active output, queue packet to mouse queue, else send them through UART */
 void output_mouse_report(mouse_report_t *report, device_t *state) {

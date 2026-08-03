@@ -42,6 +42,7 @@ const config_t default_config = {
             .speed_x2 = MOUSE_SPEED_B2_FACTOR_X,
             .speed_y2 = MOUSE_SPEED_B2_FACTOR_Y,
             .rotate_screen2 = ROTATE_SCREEN_B2,
+            .screen2_x_boundary = SCREEN2_X_BOUNDARY_B,
             .border = {
                 .top = 0,
                 .bottom = MAX_SCREEN_COORD,

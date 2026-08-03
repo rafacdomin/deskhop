@@ -60,6 +60,7 @@ OUTPUT_B_EXTRA_ = [
     FormField(13, "Screen 2 Speed X", 28, {"min": 1, "max": 100}, "int32", "range"),
     FormField(14, "Screen 2 Speed Y", 16, {"min": 1, "max": 100}, "int32", "range"),
     FormField(15, "Screen 2 Rotate Axes", None, {}, "uint8", "checkbox"),
+    FormField(16, "Screen 2 X Boundary", None, {}, "uint32"),
 ]
 
 def generate_output(base, data):

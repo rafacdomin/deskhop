@@ -43,9 +43,13 @@ typedef struct {
     uint32_t screen_index;     // Current active screen
     int32_t speed_x;           // Mouse speed per output, in direction X
     int32_t speed_y;           // Mouse speed per output, in direction Y
-    int32_t speed_x2;          // Mouse speed for screen_index == 2, in direction X (e.g. rotated monitor)
-    int32_t speed_y2;          // Mouse speed for screen_index == 2, in direction Y
-    uint8_t rotate_screen2;    // If non-zero, swap X/Y axes when on screen_index == 2 (portrait monitor)
+    int32_t speed_x2;           // Mouse speed for the secondary physical monitor, in direction X
+    int32_t speed_y2;           // Mouse speed for the secondary physical monitor, in direction Y
+    uint8_t rotate_screen2;     // If non-zero, swap X/Y axes on secondary physical monitor (portrait)
+    uint32_t screen2_x_boundary;// X coord (0-32767) where secondary monitor meets the main one.
+                                // If > 0, enables position-based detection (for physical monitors).
+                                // B2 region: pointer_x <= screen2_x_boundary.
+                                // Set to 0 to use legacy screen_index mechanism (MacOS Spaces).
     border_size_t border;      // Screen border size/offset to keep cursor at same height when switching
     uint8_t os;                // Operating system on this output
     uint8_t pos;               // Screen position on this output

@@ -87,8 +87,16 @@
 #define MOUSE_SPEED_B2_FACTOR_Y  16
 #define ROTATE_SCREEN_B2         1
 
-/* Numero de monitores virtuais no Output B (B1 + B2) */
-#define SCREEN_COUNT_B 2
+/* Numero de monitores virtuais no Output B (MacOS Spaces). Para monitores fisicos,
+   manter em 1 e usar SCREEN2_X_BOUNDARY_B para deteccao por posicao. */
+#define SCREEN_COUNT_B 1
+
+/* Limite X (0-32767) que separa B2 (esquerda) de B1 (direita).
+   Para monitores fisicos lado a lado. Calcule com:
+     boundary = (largura_B2_px / largura_total_px) * 32767
+   Ex: B2=1080px, B1=1920px -> (1080/3000)*32767 = 11796
+   Use 0 para desativar (modo legado: MacOS Spaces via screen_index). */
+#define SCREEN2_X_BOUNDARY_B 11796
 
 #define JUMP_THRESHOLD 0
 
