@@ -48,6 +48,9 @@ const field_map_t api_field_map[] = {
     { 50, false, UINT8,  1, offsetof(device_t, config.output[1].screensaver.only_if_inactive) },
     { 51, false, UINT64, 7, offsetof(device_t, config.output[1].screensaver.idle_time_us) },
     { 52, false, UINT64, 7, offsetof(device_t, config.output[1].screensaver.max_time_us) },
+    { 53, false, INT32,  4, offsetof(device_t, config.output[1].speed_x2) },
+    { 54, false, INT32,  4, offsetof(device_t, config.output[1].speed_y2) },
+    { 55, false, UINT8,  1, offsetof(device_t, config.output[1].rotate_screen2) },
 
     /* Common config */
     { 70, false, UINT32, 4, offsetof(device_t, config.version) },
